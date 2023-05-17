@@ -1,6 +1,10 @@
 package co.com.david.consumer;
 
+import co.com.david.consumer.config.RestConsumerConfig;
 import co.com.david.helper.GenericHelper;
+import co.com.david.model.Status;
+import co.com.david.model.lista.Lista;
+import co.com.david.model.lista.gateways.ListaRepository;
 import co.com.david.model.movie.Movie;
 import co.com.david.model.movie.gateways.MovieRepository;
 import co.com.david.model.paginator.Paginator;
@@ -14,9 +18,10 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class RestConsumer implements PaginatorRepository, MovieRepository {
+public class RestConsumer implements PaginatorRepository, MovieRepository, ListaRepository {
 
     private final WebClient client;
+    private final RestConsumerConfig config;
 
     @Override
     public Paginator<Movie> getAllMovies(Map<String, String> filters) {
@@ -41,5 +46,68 @@ public class RestConsumer implements PaginatorRepository, MovieRepository {
                 .retrieve()
                 .bodyToMono(MovieResponse.class)
                 .blockOptional().orElseGet(MovieResponse::new);
+    }
+
+    @Override
+    public Lista getDetailsById(int id) {
+        return client
+                .get()
+                .uri(uriBuilder -> {
+                    return uriBuilder.path("/list")
+                            .path("/"+id)
+                            .queryParam("session_id", config.getSessionId())
+                            .build();
+                })
+                .retrieve()
+                .bodyToMono(ListaResponse.class)
+                .blockOptional().orElseGet(ListaResponse::new);
+    }
+
+    @Override
+    public Status deleteMovieOnList(int id, Movie body) {
+        return client
+                .post()
+                .uri(uriBuilder -> {
+                    return uriBuilder.path("/list")
+                            .path("/"+id)
+                            .path("/remove_item")
+                            .queryParam("session_id", config.getSessionId())
+                            .build();
+                })
+                .retrieve()
+                .bodyToMono(StatusResponse.class)
+                .blockOptional().orElseGet(StatusResponse::new);
+    }
+
+    @Override
+    public Status saveMovieOnList(int id, Movie body) {
+        return client
+                .post()
+                .uri(uriBuilder -> {
+                    return uriBuilder.path("/list")
+                            .path("/"+id)
+                            .path("/add_item")
+                            .queryParam("session_id", config.getSessionId())
+                            .build();
+                })
+                .retrieve()
+                .bodyToMono(StatusResponse.class)
+                .blockOptional().orElseGet(StatusResponse::new);
+    }
+
+    @Override
+    public Status clearMovies(int id) {
+        return client
+                .post()
+                .uri(uriBuilder -> {
+                    return uriBuilder.path("/list")
+                            .path("/"+id)
+                            .path("/clear")
+                            .queryParam("session_id", config.getSessionId())
+                            .build();
+                })
+                .retrieve()
+                .bodyToMono(StatusResponse.class)
+                .blockOptional().orElseGet(StatusResponse::new);
     }
 }

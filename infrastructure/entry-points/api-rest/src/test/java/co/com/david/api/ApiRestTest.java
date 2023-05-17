@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApiRestTest {
 
-    ApiRest apiRest = new ApiRest(null);
+    ApiRest apiRest = new ApiRest(null,null);
 
     @Test
     void apiRestTest() {
