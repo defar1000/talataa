@@ -28,6 +28,11 @@ public class ApiRest {
         return new ResponseEntity<>(moviesUseCase.getAllMovies(filters), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/movie/{id}")
+    public ResponseEntity<Movie> getMovieById(@PathVariable Integer id) {
+        return new ResponseEntity<>(moviesUseCase.getById(id), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/list/{id}/details")
     public ResponseEntity<Lista> getListDetailsById(@PathVariable Integer id) {
         return new ResponseEntity<>(listsUseCase.getDetailsById(id), HttpStatus.OK);

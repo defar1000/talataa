@@ -55,7 +55,6 @@ public class RestConsumer implements PaginatorRepository, MovieRepository, Lista
                 .uri(uriBuilder -> {
                     return uriBuilder.path("/list")
                             .path("/"+id)
-                            .queryParam("session_id", config.getSessionId())
                             .build();
                 })
                 .retrieve()
