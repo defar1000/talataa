@@ -20,3 +20,9 @@ management:
     health:
       probes:
         enabled: true
+adapter:
+  restconsumer:
+    timeout: 5000
+    url: "https://api.themoviedb.org/3"
+    token: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZjUxNTczYjcyM2JkY2IzZjcwYWQ1ZDU4Nzg0YmU1MyIsInN1YiI6IjY0NjFiYTg0ZGJiYjQyMDExOWY1NDg3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nEq-Xpeo6hCTa7_wZCtrFmneeEL3i9CgXWsIrTEnQFk"
+    session_id: "ff8784e3d807680da2c52a8bf1fabbda54297e6f"

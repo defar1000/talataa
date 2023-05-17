@@ -1,10 +1,100 @@
+
+#Prueba t√©cnica  Ingeniero de Desarrollo de Software JAVA
+
+Introducci√≥n:
+A continuaci√≥n est√°n las instrucciones de la prueba t√©cnica para Ingeniero de desarrollo JAVA, el plazo m√°ximo de entrega se especifica en el correo electr√≥nico, quedo atento a cualquier duda.
+Por favor leer atentamente cada punto.
+1. Utilizando JAVA y spring boot se requiere la construcci√≥n de una RESTful API donde se consuma los servicios provee la api de The Movie database.                                                                                                             2. Crear Endpoints donde exponga la data ya procesada (Incluir m√©todos POST, PUT, DELETE, UPDATE).
+3. Las respuestas de los endpoints deben estar estandarizadas para una mayor legibilidad.
+4. no mostrar m√°s 20 pel√≠culas en la carga inicial, Construir un paginador para controlar la cantidad de data          proveniente de la API (GET)
+5. Construir endpoint de detalle de cada pel√≠cula usando toda la informaci√≥n que ofrece la Api (GET por ID).
+6. El proyecto se debe subir a un repositorio P√∫blico en GitHub o GitLab, se debe compartir el link del proyecto a este mismo correo.
+7. Desplegar proyecto en cualquier tipo de nube (AWS, AZURE).
+   Aspectos a evaluar:
+1. Sem√°ntica.
+2. Patrones de Dise√±o.
+3. DRY (Don't repeat yourself).
+4. Organizaci√≥n y legibilidad.
+5. Documentaci√≥n en readme.
+
+Se Considera un Plus:
+1. Arquitectura orientada al dominio (DDD).
+2. Unit Testing.
+3. Uso de Swagger.
+4. Uso en Docker.
+   
+Recursos:
+1. API : https://www.themoviedb.org/documentation/api
+
+##Resoluci√≥n
+
+Proyecto con implementaci√≥n de clean architecture, POO, programaci√≥n funcional, programaci√≥n reactiva y patrones de dise√±o
+
+- Alojado en GitHub, repositorio publico https://github.com/defar1000/talataa/tree/master
+- Desplegado por pipelines de CI/CD por medio de AzureDevOps
+- Desplegado por medio de imagen de docker (archivo docker file en el proyecto)  
+- Corriendo en una instacia de Amazon EC2, ip de acceso  3.129.43.184 √≥ el DNS ec2-3-129-43-184.us-east-2.compute.amazonaws.com
+
+##Rutas del apiRest
+
+###Ruta Base: http://3.129.43.184/api
+
+### * Consultar todas las peliculas por paginador
+
+- ruta: /movie
+- Method Get
+- Como parametros opcionales se pueden enviar todos los permitidos por el api original
+   - Principalmente se usara el paametro page para la paginaci√≥n '?page=xx' (Nota: el api original limita este paginador a 500 o inferior)
+
+### * Consultar detallers de pilucula por ID
+- ruta /movie/{id}
+- Method Get
+- Recibe el id en la ruta, como query parameter
+
+### * Consultar detalle de una lista de peliculas
+- ruta /list/{id}/details
+- Method Get
+- Recibe el id de la lista en la ruta, como query parameter
+
+### * Eliminar una pelicula de una lista especifica
+- ruta /list/{id}/remove_item
+- Method Delete
+- Recibe el id de la lista en la ruta, como query parameter
+- Recibe la pelicula que se desea elimnar por medio del body como json
+
+### * A√±adir una pelicula a una lista especifica
+- ruta /list/{id}/add_item
+- Method Put
+- Recibe el id de la lista en la ruta, como query parameter
+- Recibe la pelicula que se desea a√±adir por medio del body como json
+
+### * Actualizar listado de peliculas en una lista especifica
+- ruta /list/{id}/update_items
+- Method Patch
+- Recibe el id de la lista en la ruta, como query parameter
+- Recibe el listado de peliculas que se desea dejar en la lista por medio del body como json
+
+### * Limpiar las peliculas de una lista especifica
+- ruta /list/{id}/clear
+- Method Post
+- Recibe el id de la lista en la ruta, como query parameter
+
+---
+####Notas adicionales
+- No logre acer pruebas unitarias por falta de tiempo
+- Nunca he usado swager y no tuve tiempo de consultarlo, por lo tanto no se implemento
+
+
+
+---
+
 # Proyecto Base Implementando Clean Architecture
 
 ## Antes de Iniciar
 
-Empezaremos por explicar los diferentes componentes del proyectos y partiremos de los componentes externos, continuando con los componentes core de negocio (dominio) y por ˙ltimo el inicio y configuraciÛn de la aplicaciÛn.
+Empezaremos por explicar los diferentes componentes del proyectos y partiremos de los componentes externos, continuando con los componentes core de negocio (dominio) y por √∫ltimo el inicio y configuraci√≥n de la aplicaci√≥n.
 
-Lee el artÌculo [Clean Architecture ó Aislando los detalles](https://medium.com/bancolombia-tech/clean-architecture-aislando-los-detalles-4f9530f35d7a)
+Lee el art√≠culo [Clean Architecture ÔøΩ Aislando los detalles](https://medium.com/bancolombia-tech/clean-architecture-aislando-los-detalles-4f9530f35d7a)
 
 # Arquitectura
 
@@ -12,11 +102,11 @@ Lee el artÌculo [Clean Architecture ó Aislando los detalles](https://medium.com/
 
 ## Domain
 
-Es el mÛdulo m·s interno de la arquitectura, pertenece a la capa del dominio y encapsula la lÛgica y reglas del negocio mediante modelos y entidades del dominio.
+Es el m√≥dulo m√°s interno de la arquitectura, pertenece a la capa del dominio y encapsula la l√≥gica y reglas del negocio mediante modelos y entidades del dominio.
 
 ## Usecases
 
-Este mÛdulo gradle perteneciente a la capa del dominio, implementa los casos de uso del sistema, define lÛgica de aplicaciÛn y reacciona a las invocaciones desde el mÛdulo de entry points, orquestando los flujos hacia el mÛdulo de entities.
+Este m√≥dulo gradle perteneciente a la capa del dominio, implementa los casos de uso del sistema, define l√≥gica de aplicaci√≥n y reacciona a las invocaciones desde el m√≥dulo de entry points, orquestando los flujos hacia el m√≥dulo de entities.
 
 ## Infrastructure
 
@@ -24,9 +114,9 @@ Este mÛdulo gradle perteneciente a la capa del dominio, implementa los casos de 
 
 En el apartado de helpers tendremos utilidades generales para los Driven Adapters y Entry Points.
 
-Estas utilidades no est·n arraigadas a objetos concretos, se realiza el uso de generics para modelar comportamientos
-genÈricos de los diferentes objetos de persistencia que puedan existir, este tipo de implementaciones se realizan
-basadas en el patrÛn de diseÒo [Unit of Work y Repository](https://medium.com/@krzychukosobudzki/repository-design-pattern-bc490b256006)
+Estas utilidades no est√°n arraigadas a objetos concretos, se realiza el uso de generics para modelar comportamientos
+gen√©ricos de los diferentes objetos de persistencia que puedan existir, este tipo de implementaciones se realizan
+basadas en el patr√≥n de dise√±o [Unit of Work y Repository](https://medium.com/@krzychukosobudzki/repository-design-pattern-bc490b256006)
 
 Estas clases no puede existir solas y debe heredarse su compartimiento en los **Driven Adapters**
 
@@ -38,10 +128,10 @@ interactuar.
 
 ### Entry Points
 
-Los entry points representan los puntos de entrada de la aplicaciÛn o el inicio de los flujos de negocio.
+Los entry points representan los puntos de entrada de la aplicaci√≥n o el inicio de los flujos de negocio.
 
 ## Application
 
-Este mÛdulo es el m·s externo de la arquitectura, es el encargado de ensamblar los distintos mÛdulos, resolver las dependencias y crear los beans de los casos de use (UseCases) de forma autom·tica, inyectando en Èstos instancias concretas de las dependencias declaradas. Adem·s inicia la aplicaciÛn (es el ˙nico mÛdulo del proyecto donde encontraremos la funciÛn ìpublic static void main(String[] args)î.
+Este m√≥dulo es el m√°s externo de la arquitectura, es el encargado de ensamblar los distintos m√≥dulos, resolver las dependencias y crear los beans de los casos de use (UseCases) de forma autom√°tica, inyectando en √©stos instancias concretas de las dependencias declaradas. Adem√°s inicia la aplicaci√≥n (es el √∫nico m√≥dulo del proyecto donde encontraremos la funci√≥n 'public static void main(String[] args)'.
 
 **Los beans de los casos de uso se disponibilizan automaticamente gracias a un '@ComponentScan' ubicado en esta capa.**
