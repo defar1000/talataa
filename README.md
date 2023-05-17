@@ -83,6 +83,7 @@ Proyecto con implementación de clean architecture, POO, programación funcional
 ####Notas adicionales
 - No logre acer pruebas unitarias por falta de tiempo
 - Nunca he usado swager y no tuve tiempo de consultarlo, por lo tanto no se implemento
+- Los 4 ultimos endpoint no estan funcionales, ya que no logre encontrar la forma que debia tener el body para funcionar y el api de origen no tenia documentación al respecto
 
 
 
